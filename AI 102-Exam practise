@@ -83,6 +83,8 @@ you can upload the mp4 file as as well
 upload the transcript as well to validate the WER and TER rate for the model evluation 
 
 
+
+
 **************************************************************************************************
 types of the promt engineering:
 
@@ -277,3 +279,61 @@ Enthusiastic			I'm a bot, so I don't have an age.
 
 F1 Score
 
+
+https://www.google.com/search?q=f1+score+meaning+in+machine+learning+simple&sca_esv=9a8ab6189a2ca03b&rlz=1C1GCEU_en&sxsrf=AHTn8zoAmLvcidgleOovAXo_rEDTbjPQ2g%3A1747665997589&ei=TUQraPnhI_SH4-EPkdOxuQo&ved=0ahUKEwi5vOOX46-NAxX0wzgGHZFpLKcQ4dUDCBA&uact=5&oq=f1+score+meaning+in+machine+learning+simple&gs_lp=Egxnd3Mtd2l6LXNlcnAiK2YxIHNjb3JlIG1lYW5pbmcgaW4gbWFjaGluZSBsZWFybmluZyBzaW1wbGUyBRAhGKABMgUQIRigAUiyXlAAWPxbcAB4AZABAJgBa6AB2RCqAQQyNi4yuAEDyAEA-AEBmAIcoAK0EsICCxAAGIAEGJECGIoFwgIREC4YgAQYsQMY0QMYgwEYxwHCAgsQLhiABBixAxiDAcICDhAuGIAEGLEDGIMBGIoFwgIREC4YgAQYsQMYgwEY1AIYigXCAg4QABiABBixAxiDARiKBcICCxAAGIAEGLEDGIMBwgIFEAAYgATCAgQQIxgnwgIKECMYgAQYJxiKBcICDRAAGIAEGLEDGEMYigXCAgoQABiABBhDGIoFwgIQEC4YgAQY0QMYQxjHARiKBcICDhAuGIAEGLEDGIMBGNQCwgIIEC4YgAQYsQPCAhAQABiABBixAxhDGIMBGIoFwgILEC4YgAQYxwEYrwHCAgUQLhiABMICBxAAGIAEGArCAgoQABiABBgUGIcCwgIKEAAYgAQYsQMYCsICBhAAGAcYHsICCxAAGIAEGIYDGIoFwgIGEAAYFhgewgIIEAAYgAQYogTCAgUQIRifBcICBxAhGKABGAqYAwDiAwUSATEgQJIHBDI0LjSgB7C6AbIHBDI0LjS4B7QSwgcMMC4yLjIyLjMuMC4xyAfIAQ&sclient=gws-wiz-serp
+
+
+
+******************************************************************************************************************************
+
+
+describeImageInStreamAsync in computer vision API
+
+
+The describe feature of the Computer Vision API generates a human-readable sentence to describe the contents of an image. 
+This is particularly useful for accessibility purposes, as it allows visually impaired users to understand what is in an image without needing to see it. 
+The describe feature can also be customized to provide additional details or context, if desired.
+
+
+************************************************************************************************************************
+
+
+LoggingOptOut in azure language/computer vision  
+
+A new query parameter, LoggingOptOut , is now available for customers who wish to opt out of logging
+input text for incident reports.
+
+By default, this parameter is set to false for Language Detection, Key Phrase Extraction, Sentiment Analysis and Named Entity Recognition endpoints.
+
+ The LoggingOptOut parameter is true by default for the PII and health feature endpoints. More information on the LoggingOptOut query parameter is available 
+ in the API reference.
+ 
+ 
+ Data sent in synchronous or asynchronous calls may be temporarily stored by Azure AI Language for up to 48 hours only 
+ and is purged thereafter. This data is encrypted and is only accessible to authorized on call engineers when service
+ support is needed for debugging purposes in the event of a catastrophic failure. To prevent this temporary storage of input data,
+ the LoggingOptOut query parameter can be set accordingly
+ 
+ 
+*******************************************************************************************************************************
+Named Entity Recognition (NER) in computer vision API
+
+Named Entity Recognition (NER) is a feature that identifies and classifies entities in text . ex : predifined entities like place, person ,
+date, URL,Address etc
+
+Custom NER allows you to train models to recognize specialized entities specific to your use case. In this you need to build custom entity model 
+label your data --> train it --> test it---> deploy as an app service plan 
+
+
+***********************************************************************************************************************************
+
+ channels in bot service azure
+ 
+ 
+Direct Line: 	Enables you to integrate your bot into web pages, mobile apps, and other applications. 
+Email: 	Allows your bot to communicate with users via Microsoft 365 email. 
+Facebook: 	Supports communication with users on both Facebook Messenger and Facebook Workplace. 
+GroupMe: 	Allows your bot to interact with users through the GroupMe platform. 
+Other Channels: 	Azure Bot Service also supports other channels like Skype, Slack, Telegram, and more, allowing for a diverse range of user interactions.
+
+********************************************************************************************************************** 
