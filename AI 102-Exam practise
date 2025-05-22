@@ -337,3 +337,29 @@ GroupMe: 	Allows your bot to interact with users through the GroupMe platform.
 Other Channels: 	Azure Bot Service also supports other channels like Skype, Slack, Telegram, and more, allowing for a diverse range of user interactions.
 
 ********************************************************************************************************************** 
+
+
+Azure Cognitive Services RBAC roles :
+Cognitive Services User:
+This role provides a wide range of access to Cognitive Services resources, including the ability to view, create, edit, and delete data, models, 
+and endpoints in custom projects. It also allows users to list resource keys. 
+
+QnA Maker Editor:
+This role grants full access to QnA Maker resources, allowing users to create, edit, and publish knowledge bases. 
+They can manage all aspects of QnA Maker, including adding, updating, and deleting Q&A pairs, and testing the knowledge base. 
+
+QnA Maker Reader:
+This role provides read-only access to QnA Maker resources, allowing users to view knowledge bases and test them. 
+They cannot make any changes or modifications to the knowledge base
+
+
+In essence:
+If you need broad access to various Cognitive Services resources, use the "Cognitive Services User" role. 
+If you need to manage and publish QnA Maker knowledge bases, use the "QnA Maker Editor" role. 
+If you only need to view and test QnA Maker knowledge bases, use the "QnA Maker Reader" role. 
+
+
+*************************************************************************************************
+AI enrichment in Azure AI Search
+
+https://learn.microsoft.com/en-us/azure/search/cognitive-search-concept-intro
