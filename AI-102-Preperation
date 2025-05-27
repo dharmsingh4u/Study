@@ -1,0 +1,920 @@
+AI responsible :
+
+Principles:
+
+Fairness, Reliability, Privacy, inclusiveness, Transparency , Accountability 
+
+
+inclusiveness : AI should empowers everyone and engage people 
+
+Inclusiveness helps to ensure that AI systems are not only fair but also effective and accessible for all. 
+
+ 
+Ethitical Practise :
+
+Fairness test,audits , monitoring impact 
+
+*********************************8
+
+Natural language processing (NLP):
+
+https://medium.com/@saikirankalidindi/a-comprehensive-guide-for-natural-language-processing-nlp-for-beginners-39faa26ad4d9
+
+NLP can be divided into two overlapping subfields: 
+
+
+natural language understanding (NLU)
+which focuses on semantic analysis or determining the intended meaning of text 
+ 
+ natural language generation (NLG)
+ which focuses on text generation by a machine
+ 
+task performed by NLP:
+
+Machine translation
+Named entity recognition
+Spam detection 
+Grammatical error correction model
+Autocomplete
+Chatbots 
+
+termonology in NLP:
+
+Corpus -->paragraph --- full feature
+Documents -->sentences--- one row of the feature in dataframe  
+Vocubalry--> unique words
+
+
+***************************************************************************************************************
+
+Stemming :
+
+is a process of reducing of words to its stem or its root . For ex: Eating , eaten , eats rounds to eat in NLP.
+
+stemming merely removes common suffixes from the end of word tokens
+
+from nltk.stem.snowball import SnowballStemmer
+from nltk.tokenize import word_tokenize
+stemmer = SnowballStemmer("english", True)
+text = "There is nothing either good or bad but thinking makes it so."
+words = word_tokenize(text)
+stemmed_words = [stemmer.stem(word) for word in words]
+
+
+lemmatization :
+
+
+onsiders the word's meaning and part-of-speech to derive the base form, or lemma. 
+
+ensures the output word is an existing normalized form of the word (for example, lemma) that can be found in the dictionary.
+
+
+from nltk.stem import WordNetLemmatizer
+WordNetLemmatizer_r=WordNetLemmatizer()
+words=['coo',"eating","eats","eaten","writes","programming","programs",'history']
+WordNetLemmatizer_r.lemmatize('histories')
+for i in words:
+    print('words is ',i,' ',WordNetLemmatizer_r.lemmatize(i,pos='v'))
+	
+this is getting used in part of speech:
+
+which is giving each word in a text a grammatical category, such as nouns, verbs, adjectives, and adverbs.
+
+
+nltk.download('punkt')
+nltk.download('averaged_perceptron_tagger')
+
+**************************************************************************************************
+
+part of speech:
+
+basically input to this is list and output is again list , but a tuple of words something like :
+
+[('three', 'CD'), ('visions', 'NNS'), ('india', 'VBP'), ('.', '.')]
+
+
+
+# Importing the NLTK library
+import nltk
+from nltk.tokenize import word_tokenize
+from nltk import pos_tag
+ 
+# Sample text
+text = "NLTK is a powerful library for natural language processing."
+ 
+# Performing PoS tagging
+pos_tags = pos_tag(words)
+ 
+# Displaying the PoS tagged result in separate lines
+print("Original Text:")
+print(text)
+ 
+print("\nPoS Tagging Result:")
+for word, pos_tag in pos_tags:
+    print(f"{word}: {pos_tag}")
+	
+	
+output is :
+
+Original Text:
+NLTK is a powerful library for natural language processing.
+PoS Tagging Result:
+NLTK: NNP
+is: VBZ
+a: DT
+powerful: JJ
+library: NN
+for: IN
+natural: JJ
+language: NN
+processing: NN
+.: .
+
+
+
+**************************************************************************************
+
+Named Entity Recognition 
+
+is also referred to as entity identification, entity chunking, and entity extraction. NER is the component of information extraction that aims to
+ identify and categorize named entities within unstructured text. NER involves the identification of key information in the text and 
+ classification into a set of predefined categories. An entity is the thing that is consistently talked about or refer to in the text,
+ such as person names, organizations, locations, time expressions, quantities, percentages and more predefined categories.
+ 
+from nltk import ne_chunk
+ 
+ sentence="The Eiffel Tower was built from 1887 to 1889 by Gustave Eiffel, whose company specialized in building metal frameworks and structures."
+
+ne_chunk(pos_tag(word_tokenize(sentence))).draw()
+
+
+*******************************************************************************************************************************
+Text Encoding:
+
+https://medium.com/geekculture/encoding-text-for-nlp-tasks-84696bce83e6
+
+
+***********************************************************************************************************************
+
+One Hot encoding : not used often in NLP
+
+https://medium.com/analytics-vidhya/one-hot-encoding-of-text-data-in-natural-language-processing-2242fefb2148
+
+every word (even symbols) which are part of the given text data are written in the form of vectors, constituting only of 1 and 0 . So one 
+hot vector is a vector whose elements are only 1 and 0. 
+Each word is written or encoded as one hot vector, with each one hot vector being unique. 
+This allows the word to be identified uniquely by its one hot vector and vice versa, that is no two words will have same one hot vector representation
+
+we creates vector of each words in the vovubalry (unique set of words)
+
+
+
+disadvatanges :
+
+sparse matrix :
+The resulting vectors are often sparse, meaning they contain mostly zeros with only a single "1" indicating the presence of a specific category. 
+This sparsity wastes memory and can increase computational complexity. 
+
+Lack of Semantic Information
+
+One-hot encoding treats all words as equally different, regardless of their semantic meaning or similarity. For example, "king" and 
+"queen" are represented the same as "king" and "table,"
+ even though "king" and "queen" have a clear semantic relationship.
+ 
+ 
+Cosine Distance Problem:
+The cosine distance between any two one-hot vectors is the same, making it difficult to capture semantic relationships between words.
+
+out of vocubalary :
+
+one hot encoding is perform on the traning data and let say in the test data if a unique words comes then how will be one one hot encoding will be done  
+
+Memory Inefficiency
+
+The high dimensionality and sparsity of one-hot encoded data can lead to memory inefficiency, especially when dealing with large datasets or large vocabularies. 
+
+
+
+******************************************************************************************
+
+bag of words : mostly used in spam , sentiment analysis 
+
+is used to preprocess the text by converting it into a bag of words, which keeps a count of the total occurrences of most frequently used words.
+ 
+ 
+disadvantages
+ 
+ 
+Loss of Sequence Information:
+BoW disregards word order, making it unable to capture the sequential relationships between words that contribute to meaning. 
+For example, "the cat sat" and "sat the cat" would be treated as the same, 
+even though they have different meanings. 
+
+
+Sparsity (less being compared to one hot encoding)
+
+BoW representations can become sparse, especially with large vocabularies, leading to increased storage and computational costs.
+
+
+Lack of Semantic Information
+
+One-hot encoding treats all words as equally different, regardless of their semantic meaning or similarity. For example, "king" and 
+"queen" are represented the same as "king" and "table,"
+ even though "king" and "queen" have a clear semantic relationship.
+ 
+ 
+out of vocubalary :
+
+one hot encoding is perform on the traning data and let say in the test data if a unique words comes then how will be one one hot encoding will be done  
+
+***********************************************************************************************************
+
+TF IDF :
+
+https://medium.com/@abhishekjainindore24/tf-idf-in-nlp-term-frequency-inverse-document-frequency-e05b65932f1d
+
+
+TF-IDF is a numerical statistic that reflects the significance of a word within a document relative to a collection of documents, 
+known as a corpus. The idea behind TF-IDF is to quantify the importance of a term in a document with respect to its frequency in
+the document and its rarity across multiple documents.
+
+***************************************************************************************************************************
+
+
+Azure Search AI:
+
+(formerly known as “Azure Cognitive Search”) provides secure information retrieval at scale over user-owned content
+ in traditional and generative AI search applications
+ 
+ 
+ 
+https://tech-depth-and-breadth.medium.com/azure-ai-search-for-rag-use-cases-c882fec42246
+
+
+creating a azure AI search service 
+https://www.youtube.com/watch?v=i0O7UFWQeuQ&t=1677s
+
+
+
+two types of imports:
+
+Import data
+
+refers to the general process of bringing data from an external source into a system
+
+Simply loads data from a file, database, or other source into a system. 
+Can be used with structured and unstructured data. 
+Doesn't necessarily involve converting data into a numerical format. 
+
+
+import data and vectorize:
+
+involves importing data and then converting it into numerical vector representations for use in tasks like similarity search
+ and machine learning
+ 
+nvolves the additional step of converting imported data into vector embeddings. 
+Typically used with unstructured data like text, images, or videos. 
+Enables tasks like similarity search, where the system can find data points that are "close" to each other in the vector space. 
+Requires a vector database or similar mechanism for storing and querying the vectorized data. 
+Can be done using tools like Import and vectorize data wizards in Azure AI Search. 
+
+basic difference :
+
+
+magine you're organizing a library. "Import data" is like simply putting books (your data) on the shelf. 
+"Import data and vectorize" is like also creating a detailed index (vector embeddings) that allows you to quickly find books by 
+topic or content, even if they're not explicitly categorized. 
+
+
+Azure AI Search Field Attributes
+
+Azure AI Search uses specific field attributes to define how data is indexed, queried, and displayed. The relevant attributes include:
+
+facetable: Enables grouping and counting of search results into categories.
+
+filterable: Allows filtering of search results using specified criteria.
+
+retrievable: Determines if the field's data is included in search results.
+
+sortable: Allows search results to be sorted by the field's values.
+
+
+Replicas are copies of the search engine. Partitions are units of storage . if you need more repliaces and index then go for higher prcing tier
+
+
+Knowledge Store::
+
+is a logical container defined in a skillset that specifies how AI-generated data is stored in Azure Storage
+
+Projections: define the physical structure and format of the stored data, whether it's tables, objects, or files. 
+
+tables : Store enriched content in Azure Table Storage, suitable for data exploration and analysis. power BI reporting and data exploratory analysis 
+
+Object Projections  ->Store enriched content as objects in Azure Blob Storage. project JSON document into Blob storage. The physical representation of an object is a hierarchical 
+JSON structure that represents an enriched document.
+
+File Projections  -->Store enriched content as files in Azure Blob Storage, often used for binary data
+
+***********************************************************************************************************
+
+Computer vision :
+
+SDK:
+
+Computer Vision focuses on analyzing visual information from images and videos
+
+
+https://learn.microsoft.com/en-us/azure/ai-services/computer-vision/quickstarts-sdk/image-analysis-client-library-40?tabs=visual-studio%2Clinux&pivots=programming-language-rest-api
+
+
+asic Concepts: Understanding images and how computers process visual data.
+
+Image Processing Techniques: Methods for manipulating and analyzing images (e.g., filtering, edge detection).
+
+Object Detection and Classification: Identifying and categorizing objects within images.
+
+Azure Computer Vision Services: Utilizing Azure’s suite of tools for image analysis, including the Computer Vision API.
+
+
+
+******************************************************************************************************
+
+
+AI Document Intelligence
+
+ AI Document Intelligence leverages machine learning and natural language processing to understand and extract information from documents
+
+
+https://learn.microsoft.com/en-us/python/api/overview/azure/ai-documentintelligence-readme?view=azure-python&preserve-view=true
+
+
+https://medium.com/@danushidk507/microsoft-azure-ai-fundamentals-document-intelligence-and-knowledge-mining-eb6ca9035060
+
+
+
+****************************************************************************************************************
+
+Azure Open AI :
+
+Azure OpenAI is Microsoft’s offering of OpenAI’s models via the Azure platform. It allows Azure users to integrate OpenAI’s services 
+(natural language processing, code generation, image generation, and many more) into their Azure-based infrastructure.
+
+
+https://www.datacamp.com/tutorial/azure-openai
+
+
+**********************************************************************************************
+Azure AI Foundry
+
+https://medium.com/@danushidk507/azure-ai-foundry-ed8a9ca65d45
+
+Azure AI Foundry is a broader platform for developing and deploying AI applications.
+
+
+Azure AI Foundry consolidates multiple Azure AI services (e.g., Azure OpenAI, Azure AI Search, Azure AI Speech) into a single portal,
+ accessible via ai.azure.com.
+ It provides a cohesive workspace for designing, customizing, testing, and deploying AI applications.
+ 
+ Offers access to over 1,600 prebuilt models from providers like OpenAI, Microsoft, Meta, Mistral, Cohere, and Hugging Face.
+
+
+****************************************************************************************************************************************
+
+
+Azure AI Services (formerly Cognitive Services) vs Azure OpenAI Service
+
+Scope: A broad set of prebuilt AI APIs for various tasks
+Focus: General-purpose AI for vision, speech, language, and decision-making
+
+
+Includes:
+Azure AI Vision: Image analysis, OCR, facial recognition
+
+Azure AI Speech: Speech-to-text, text-to-speech, translation
+
+Azure AI Language: Text analytics, translation, QnA Maker
+
+Azure AI Search: Semantic search with AI capabilities
+
+Azure AI Personalizer: Personalized recommendations
+
+These are mostly pretrained models with REST APIs that can be easily integrated with minimal customization.
+
+
+Azure OpenAI Service:
+
+Scope: A specialized service for generative AI using OpenAI’s powerful language models
+Focus: Large language models (LLMs) like GPT, Codex, and DALL·E
+
+Offers:
+GPT-4 / GPT-3.5: Natural language generation, summarization, chatbots
+
+Codex: Code generation from natural language
+
+DALL·E: Image generation from text prompts
+
+Embeddings: For search, classification, clustering
+
+Azure OpenAI gives you API access to OpenAI models hosted in Microsoft's cloud, with Azure compliance, security, and scalability.
+
+*****************************************************************************************************
+
+Azure AI Content Safety:
+
+https://learn.microsoft.com/en-us/azure/ai-foundry/ai-services/content-safety-overview
+
+is an AI service that detects harmful user-generated and AI-generated content in applications and services. Azure AI Content Safety includes APIs that allow 
+you to detect and prevent the output of harmful content.
+
+Text content:
+Image content
+
+
+******************************************************************************************************************
+
+
+Azure AI Vision (computer vision )
+
+
+offers a wide range of use cases across various industries, from automating tasks like basic OCR and image analysis to enabling advanced features 
+like object detection, content moderation, and video analysis. It can also be used for tasks like generating accessible alt-text for images,
+ improving object discoverability, and automating visual alerts
+ 
+ major use cases like 
+ 
+Optical Character Recognition (OCR):
+Object Detection-----> Identify and locate specific objects within an image, like cars in a traffic scene or medical instruments in an X-ray. 
+E-commerce----->Automatically tag products, enable visual search, and moderate user-generated content. 
+Face Recognition:
+Spatial Analysis------>Analyze real-time streaming video to understand spatial relationships between people and their movement through physical environments. 
+
+https://learn.microsoft.com/en-us/python/api/overview/azure/ai-vision-imageanalysis-readme?view=azure-python
+
+https://github.com/MicrosoftLearning/mslearn-ai-vision/blob/main/Instructions/Exercises/01-analyze-images.md?plain=1
+
+
+************************************************************************************************8
+
+Azure Document intelligent service (previosuly called as Form Recognizer) :
+
+ Azure AI Document Intelligence, formerly known as Form Recognizer, offers a solution to this challenge by providing tools to
+ extract key information from unstructured documents in an automated and scalable way.
+ 
+ 
+ Build mode for custom model :
+ 
+Template models only 
+
+accept documents that have the same basic page structure—a uniform visual appearance—or the same relative positioning of elements within the document.
+
+Neural models support documents
+
+that have the same information, but different page structures. Examples of these documents include United States W2 forms, which share the same information, but vary in appearance across companies.
+
+
+Types of the model:
+
+Custom Models
+
+Document Intelligence allows you to train custom models tailored to specific types of forms or documents.
+These models are trained on your own data to recognize and extract information from your unique document formats. 
+
+Composed Models
+
+A composite model is created by combining multiple custom models into a single model.
+This allows you to handle a variety of document types without having to process each document type individually. 
+
+********************************************************************************************************
+
+Azure AI foundry (previously known as Azure AI Studio)  :
+
+Azure AI Foundry is a unified, web-based platform designed by Microsoft to streamline the development,
+deployment, and management of artificial intelligence (AI) applications.
+It serves as an all-in-one environment for developers, data scientists, and organizations to create intelligent, market-ready, and responsible AI solutions.
+Azure AI Foundry integrates various Azure AI services, a rich model catalog, and development tools into a single interface, 
+making it easier to build generative AI applications, custom copilots, and enterprise-grade agents.
+ 
+ 
+Azure AI Foundry consolidates multiple Azure AI services (e.g., Azure OpenAI, Azure AI Search, Azure AI Speech) into a
+ single portal, accessible via ai.azure.com.
+
+Offers access to over 1,600 prebuilt models from providers like OpenAI, Microsoft, Meta, Mistral, Cohere, and Hugging Face.
+
+
+Speech to text model evlaution :
+
+https://learn.microsoft.com/en-us/azure/ai-services/speech-service/how-to-custom-speech-evaluate-data?pivots=ai-foundry-portal
+
+Word Error Rate (WER)
+
+WER is a metric that measures the accuracy of a system's transcription by comparing the generated text to a reference transcript.
+
+It's calculated by counting the number of errors (substitutions, deletions, and insertions) in the generated text relative to the total number 
+of words in the reference transcript. 
+
+
+Token Error Rate (TER)
+
+is a metric used to evaluate the accuracy of speech-to-text systems. It measures the correctness of the final recognition of words, capitalization, 
+punctuation, and other aspects of written text,compared to a reference transcript
+
+****************************************************************************************************************************
+
+Prompt flow:
+
+https://medium.com/@danushidk507/create-a-flow-promptflow-e6ee6ebd3f7f
+https://medium.com/@danushidk507/promptflow-in-azure-ai-foundry-a4a60fc8aea7
+
+Prompt Flow is a development tool created to simplify the process of building, testing, and deploying AI applications powered by Large Language Models (LLMs). 
+It’s designed to streamline the entire development lifecycle — prototyping, experimenting, iterating, and deploying 
+— by providing a visual and intuitive interface.
+
+
+Orchestrate flows: Combine LLMs, prompts, and Python tools into executable workflows using a visualized graph.
+Test and debug: Easily test, debug, and refine flows.
+Compare performance: Create different prompt variants and evaluate their effectiveness.
+
+Flows in prompt flow:
+
+Standard Flow -->General-purpose application development.
+Chat Flow: Development of conversational AI applications.Builds on the standard flow with enhanced support for chat inputs/outputs and chat history management.
+
+
+Chat flow is built on top of the standard flow which keeps the chat history in the conversation while answering next questions for ex :
+
+what is the capital of India , output is "Delhi" 
+2nd quesiton is what is the population of the same 
+
+RAG applicaiton how? :
+
+
+in both the flows, you can create the RAG applicaiton on top of it by adding your data and creating the vector index.
+
+
+Adding a conneciton to the API:
+
+You can add external connection as well for ex : if you wanted to know what is the population of the india
+this questions keep on changing with resepct to the time so you wanted to connect to google to give you answer latest 
+but for that you need to connect to external sources like google/bing etc 
+
+
+****************************************************************************************************
+
+Azure AI NLP :
+
+these are some API powered by NLP
+
+language detection
+sentiment analysis 
+key phase extraction
+language translation 
+Entity named resolution--> Dates, person, number etc -->can identify and categorize entities in unstructured text
+Text Summarization
+text classfication ---> categories documents into one category like sports , news, bollywood
+chatbots
+translation 
+
+you can create your custom models for entities, text classification , sentimetns analysis 
+
+
+custom models creation 
+
+1) log into languege studio 
+2) create project dependin uppn waht you want to do like entity extraction ,text classificaiton etc 
+3) Label your training data 
+4) train it 
+5) trigger deployment  
+6) test it either by UI or python code 
+
+Conversational Language Understanding model :
+
+enables users to build custom natural language understanding models to predict the overall intention of an incoming utterance 
+and extract important information from it. 
+CLU only provides the intelligence to understand the input text for the client application and doesn't perform any actions 
+
+No actions but only understand the intention of the upcoming utterence 
+
+
+Intent and entities :
+
+intents represent the user's goal or purpose behind their input, 
+while entities are the specific pieces of information extracted from the user's utterance that are relevant to achieving that goal. 
+
+Model evluaiton of the Chatbot model  :
+
+
+Precision: Measures how precise/accurate your model is. It's the ratio between the correctly identified positives (true positives) and
+ all identified positives. The precision metric reveals how many of the predicted classes are correctly labeled.
+ 
+Precision measures the percentage of correctly identified positive instances out of all instances the model classified as positive
+
+Precision = #True_Positive / (#True_Positive + #False_Positive)
+
+Recall: Measures the model's ability to predict actual positive classes. It's the ratio between the predicted true positives and
+ what was actually tagged. The recall metric reveals how many of the predicted classes are correct.
+ 
+Recall measures how well the model identifies all relevant positive instances out of the actual positive cases
+
+Recall = #True_Positive / (#True_Positive + #False_Negatives)
+
+F1 score: The F1 score is a function of Precision and Recall. It's needed when you seek a balance between Precision and Recall.
+
+F1 Score = 2 * Precision * Recall / (Precision + Recall)
+
+*****************************************************************************************************
+
+BLEU score (Bilingual Evaluation Understudy)-->Evluatign the translation language model 
+
+
+BLEU (Bilingual Evaluation Understudy) is an algorithm for evaluating the precision or accuracy of text that is machine translated from one language to another.
+ Azure AI Custom Translator uses the BLEU metric as one way of conveying translation accuracy.
+
+A BLEU score is a number between zero and 100. A score of zero indicates a low quality translation where nothing in the 
+translation matched the reference. A score of 100 indicates a perfect translation that is identical to the reference. 
+It's not necessary to attain a score of 100 - a BLEU score between 40 and 60 indicates a high-quality translation.
+
+
+
+***************************************************************************************************************
+
+QnA Maker
+
+QnA Maker is a cloud-based Natural Language Processing (NLP) service that allows you to create a natural conversational layer over your data.
+ It is used to find the most appropriate answer for any input from your custom knowledge base (KB) of information.
+ 
+Basically when you have your own data and you need to have question and answers for your customers 
+
+it requires
+
+Azure AI search service 
+storage account for storting PDF or word
+
+App Service to host your service 
+
+
+When you create a QnA Maker resource, you host the data and the runtime in your own Azure subscription. 
+These are powered by Azure AI Search and App Service.
+
+
+
+Enabling active learning:
+
+
+Enabling active learning in Azure AI Language helps you improve the accuracy of your language models by allowing the system to identify 
+and suggest new utterances or  questions that it's not well-understood. This process allows developers to review these suggestions,
+ validate them, and modify the model accordingly, leading to better predictions and a more accurate overall experience. 
+
+*********************************************************************************************
+
+
+Azure Custom Vision (Image classificaiton and object detection )
+
+https://eljand.medium.com/step-by-step-tutorial-of-azure-custom-vision-ae23541db511
+
+once you create the project then there are two types ;
+
+Classification-->if you want to label the whole image (cat or dog, broken or not-broken); 
+Object detection-->to find the location of object within an image
+
+It allows users to train their models to recognize specific images, 
+which is highly adaptable when developing personalized image recognition projects
+
+use cases (object detection and image classfication) :
+
+Retail: Automate furniture inventory by identifying products on shelves.
+Manufacturing: Detect defects in products that are passing through the assembly lines.
+Agriculture: Monitor crop health and pest activity.
+Healthcare: Assist in diagnosing diseases through medical imaging.
+
+if you wanted to see the fruit health in agricculture from inside then we can use this custom vision models 
+
+domains :
+
+https://learn.microsoft.com/en-us/azure/ai-services/custom-vision-service/select-domain
+
+How it works:
+
+0) create the project first
+1) submit/upload sets of images that do and don't have the visual characteristics you're looking for.
+2) Then you label the images with your own labels (tags) at the time of submission. model will predict from these lables only.
+3) The algorithm trains to this data and calculates its own accuracy by testing itself on the same images
+4) Train your model
+5) check out the precision , recall metrics to evluate the model 
+6) publish the model to the prediciton model and give model name
+7) test the model 
+
+
+migration of one project custom vision accounts to another vision accounts:
+
+First, you get the ID of the project in your source account you want to copy.---> Identify the right project .outcome of this project would be project id
+Then you call the ExportProject API using the project ID and the training key of your source account. You'll get a temporary token string.
+Then you call the ImportProject API using the token string and the training key of your target account. The project will then be listed under your target account.
+
+******************************************************************************************************************************
+
+
+
+Azure AI Video Indexer:
+
+analyzes the video and audio content by running 30+ AI models, generating rich insights
+
+Pre-trained Models:
+
+Insights: Azure AI Video Indexer analyzes video and audio content using 30+ AI models, generating insights like transcripts, 
+optical character recognition (OCR), face detection, topics, emotions, and more. 
+Object Detection: Identifies and classifies objects within the video. 
+Face Recognition: Recognizes faces, including celebrity recognition. 
+Transcript Generation: Creates a text transcript of the audio in the video. 
+
+Customizable Models:
+
+Person Model:
+Supports up to 1 million people and can be customized to recognize specific individuals not in the default database.
+You can build custom person models and enable Azure AI Video Indexer to recognize faces that don't get recognized by default. 
+You can build them by pairing a person's name with image files of the person's face	
+
+Brand Model:
+Detects brands mentioned in the video, with the option to enable Bing brands or customize with a specific list of brands. include or exclude the brand list
+
+Language Model:
+Supports multiple languages and can be customized for specific dialects or accents. speech recognition, transcription, and translation.
+
+Speech Model:
+Can be customized for specific pronunciations or vocabulary.
+
+
+File uploading to the video indexer website (one question came from this regarding the one drive file upload):
+
+f uploading a file from your device, the file size limit is 2 GB. If the video is uploaded from a URL, 
+the file size limit is 30 GB. The URL must lead to an online media file with a media file extension
+
+**********************************************************************************************************************
+
+Face API:
+
+It leverages AI algorithms to detect, recognize, and analyze human faces in images, making it a versatile tool for various
+applications such as identity verification,touchless access control, and privacy protection through face blurring 
+
+two features :
+
+Detection--only detect face and face attribute like age, emotion, gender, glasses , nose, and head pose. emotions like happiness, sadness, or surprise basically 
+Personal Protective Equipment (PPE) refers to garments or equipment worn to protect the body from injury or infection. Examples include 
+hard hats, gloves, safety glasses, respirators, and safety shoes. PPE is crucial in workplaces where hazards like physical, electrical, chemical,
+or biological risks are present
+
+from azure.cognitiveservices.vision.face import FaceClient
+from msrest.authentication import CognitiveServicesCredentials
+
+# Replace with your Face API key and endpoint
+KEY = 'your_face_api_key'
+ENDPOINT = 'your_face_api_endpoint' -->https://<<your_faceapi_acccount_name>/cognitiveservices.azure.com
+face_client = FaceClient(ENDPOINT, CognitiveServicesCredentials(KEY))
+
+# URL of the image to analyze
+image_url = 'https://example.com/image.jpg'
+detected_faces = face_client.face.detect_with_url(
+    url=image_url,
+    return_face_attributes=['age', 'gender', 'emotion', 'headPose']
+	
+)
+
+if model is not being specfied then it will be detection_01 model 
+for face in detected_faces:
+    print(f"Face ID: {face.face_id}")
+    print(f"Age: {face.face_attributes.age}")
+    print(f"Gender: {face.face_attributes.gender}")
+    print(f"Emotions: {face.face_attributes.emotion}")
+    print(f"Head Pose: {face.face_attributes.head_pose}")
+
+Face Recognition:
+
+Identification: This feature allows the service to identify individuals by comparing detected faces against a database of known faces. 
+It’s particularly useful for applications requiring user verification.
+Verification: The service can verify if two faces belong to the same person, which is essential for secure access control systems 
+
+in recognization , first detect the face and then run the identificaiton on top of it.
+
+Face recognization:
+
+
+The Face Identify API uses container data structures to the hold face recognition data in the form of Person objects.
+
+PersonGroup is the smallest container data structure.It can hold up to 248 faces. create the person group and that person group to the recognizator model 
+Large Person Group-->can support up to 1 million entities.
+
+step :
+
+1) create the person group either smll or large and and specify a recognition model 
+	large_person_group.create(
+        face_admin_client.large_person_group_id=LARGE_PERSON_GROUP_ID,
+        name=LARGE_PERSON_GROUP_ID,
+			detection_model=FaceDetectionModel.DETECTION03,
+            recognition_model=FaceRecognitionModel.RECOGNITION04, 
+            return_face_id=True,
+            return_face_attributes=[FaceAttributeTypeRecognition04.QUALITY_FOR_RECOGNITION]
+    )
+	
+2) add faces are added to that PersonGroup 
+
+man = face_admin_client.large_person_group.create_person(
+        large_person_group_id=LARGE_PERSON_GROUP_ID,
+        name="Man",
+		
+		
+3)  Train API 
+
+poller = face_admin_client.large_person_group.begin_train(
+        large_person_group_id=LARGE_PERSON_GROUP_ID,
+        polling_interval=5,
+    )
+	
+4) verfiy/test it  the faces id
+
+detected_faces --> is the list of faceid you get while detechting from the detect face api
+
+   for face in faces:-->collecting the faces id from the dectector 
+        # Only take the face if it is of sufficient quality.
+        if face.face_attributes.quality_for_recognition != QualityForRecognition.LOW:
+            face_ids.append(face.face_id)
+
+    # Identify faces this will gives the list of faces id 
+    identify_results = face_client.identify_from_large_person_group(
+        face_ids=face_ids,
+        large_person_group_id=LARGE_PERSON_GROUP_ID)
+		
+	print("Identifying faces in image")
+    for identify_result in identify_results:
+        if identify_result.candidates:
+            print(f"Person is identified for face ID {identify_result.face_id} in image, with a confidence of "
+                  f"{identify_result.candidates[0].confidence}.")  # Get topmost confidence score
+
+            # Verify faces
+            verify_result = face_client.verify_from_large_person_group(
+                face_id=identify_result.face_id,
+                large_person_group_id=LARGE_PERSON_GROUP_ID,
+                person_id=identify_result.candidates[0].person_id,
+            )
+            print(f"verification result: {verify_result.is_identical}. confidence: {verify_result.confidence}")
+        else:
+            print(f"No person identified for face ID {identify_result.face_id} in image.")
+		
+https://learn.microsoft.com/en-us/rest/api/face/face-recognition-operations/find-similar?view=rest-face-v1.2&tabs=HTTP	
+
+
+*******************************************************************************************************************
+
+Run azure services NLP via docker . 
+
+https://learn.microsoft.com/en-us/azure/ai-services/cognitive-services-container-support
+
+you can host these NLP azure images on your own infratecture , but you need to have Docker installed .
+
+use the below command to run :
+
+docker run --rm -it -p 5000:5000 --memory 8g --cpus 1 \
+
+mcr.microsoft.com/azure-cognitive-services/textanalytics/sentiment:{IMAGE_TAG} \
+Eula=accept \
+Billing={ENDPOINT_URI} \--> NLP service end point which you created from azure portal 
+ApiKey={API_KEY} 	NLP service key  which you created from azure portal
+
+
+steps :
+
+
+create the docker custom file 
+build the image 
+push to the container registry
+docker run 
+
+
+
+docker run --rm -it -p 5000:5000 ^
+--memory 4g ^
+--cpus 2 ^
+--mount type=bind,src=c:\input,target=/input ^
+--mount type=bind,src=c:\output\,target=/output ^
+mcr.microsoft.com/azure-cognitive-services/language/luis ^
+Eula=accept ^
+Billing={ENDPOINT_URI} ^
+ApiKey={API_KEY}
+
+
+This command:
+
+Runs a container from the LUIS container image
+Loads LUIS app from input mount at C:\input, located on container host
+Allocates two CPU cores and 4 gigabytes (GB) of memory
+Exposes TCP port 5000 and allocates a pseudo-TTY for the container
+Saves container and LUIS logs to output mount at C:\output, located on container host
+Automatically removes the container after it exits. The container image is still available on the host computer.
+
+Export package for container from LUIS portal or LUIS APIs.
+Move package file into the required input directory on the host computer. Do not rename, alter, overwrite, or decompress the LUIS package file.
+Run the container, with the required input mount and billing settings. More examples of the docker run command are available.
+Querying the container's prediction endpoint.
+When you are done with the container, import the endpoint logs from the output mount in the LUIS portal and stop the container.
+Use LUIS portal's active learning on the Review endpoint utterances page to improve the app.
+
+
+https://learn.microsoft.com/en-us/azure/ai-services/luis/luis-container-howto?tabs=v3#how-to-use-the-container

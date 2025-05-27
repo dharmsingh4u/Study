@@ -1,0 +1,624 @@
+https://www.youtube.com/watch?v=FpyzoOzSwU0&t=512s
+
+10:50 --> MP3 speech recogniser
+12:53 --- >QnM maker service
+15:21 --> automated caller
+17:51 ---> bot service 
+18:27 : 17 question
+
+q 20, 21 22,22,28,29,30,32,36,37 -->38 continue, 55 questions done
+
+
+https://www.examtopics.com/exams/microsoft/ai-102/view/2/
+https://www.examtopics.com/exams/microsoft/ai-102/view/1/
+
+
+***************************************************************************
+
+
+Commiting your changes from your local to git hub:
+
+You have to:
+
+Init a local repository
+Define the origin to the remote repository
+Add the file to the index
+Commit the files
+Push the files from the local repository to the remote
+It leads to something like that:
+
+cd yourLocalFolder
+git init
+git remote add origin https://github.com/dharmsingh4u/Study.git
+git add .
+git commit -m "Initial commit"
+git push -u origin master
+
+force push to overwrite the files
+git push -f origin master
+
+
+
+*************************************************************************************************
+
+Azure Open AI parameters :
+
+temperature (range 0 to 2)
+Use temperature to adjust randomness/creativity directly.
+
+Lower temperature (0.1–0.3): More deterministic, focused responses.
+
+Medium temperature (0.5–0.7): Balanced, creative but coherent.
+
+Higher temperature (>0.9): More random and diverse outputs.
+
+top_p
+Use top_p to fine-tune the range of token diversity based on probability mass.
+
+top_p = 1: No restriction — considers all tokens (pure sampling).
+
+top_p = 0.9: Considers only the top tokens that make up 90% of the total probability.
+
+top_p = 0.1: Very selective — only the most likely tokens are considered.
+
+Combined usage: You can use both, but it's usually best to tune only one at a time (set the other to default).
+
+{
+  "model": "gpt-4",
+  "prompt": "Write a poem about the ocean.",
+  "temperature": 0.7,
+  "top_p": 0.9,
+  "max_tokens": 100
+}
+
+This combination gives balanced creativity (temperature=0.7) while ensuring output comes from top 90% probable words (top_p=0.9).
+
+
+*************************************************************************************************
+
+Speech model :
+
+upload the wav file if you have single file else upload a zip file containing multiple .wav files 
+you can upload the mp4 file as as well
+upload the transcript as well to validate the WER and TER rate for the model evluation 
+
+
+Speech API end point 
+
+https://<REGION_IDENTIFIER>.stt.speech.microsoft.com
+
+stt-->speech to text 
+tts-->text to speech
+
+
+Custom Neural Voice model (text to speech model ):
+
+
+Azure's Custom Neural Voice, a part of the Azure AI Speech service, allows you to create highly realistic, synthetic voices
+ that mimic a specific person or voice actor.
+ This can be used in various scenarios, including creating branded speech solutions, audiobooks, and more. 
+
+How does it work :
+
+1) Create a project in Speech Studio
+2) Set up voice talent--->Before you can train a neural voice, you must submit a recording of 
+		the voice talent's consent statement. The voice talent statement is a recording of the voice talent reading a statement that they consent to the usage of their speech data to train a custom voice model.
+3) Prepare training data 
+4) Train your voice model
+5) Test
+6) deploy
+
+
+
+**************************************************************************************************
+types of the promt engineering:
+
+
+https://medium.com/@amiraryani/8-types-of-prompt-engineering-5322fff77bdf
+
+Priming the Prompt:
+a technique where the AI model is initially exposed to specific instructions or context before the primary prompt is given. This helps guide the AI towards a
+ desired behavior or output by priming its understanding. 
+ 
+ Imagine setting the stage for a play before the main act. Priming is like providing the AI with a script or a set of instructions to follow 
+ before the main prompt is given.
+ 
+ **********************************************************************************************************************
+ 
+ 
+Multi-turn conversations:
+
+Multi-turn conversations in an Azure chatbot allow for a more natural and engaging experience by enabling back-and-forth 
+interactions between the user and the bot. This is achieved through features like follow-up prompts and active learning, 
+allowing the chatbot to refine its responses based on user input and retain context across multiple turns
+
+
+******************************************************************************************8
+
+Azure conversational languege app:
+
+1) Create the new applicaiton or project 
+2) pick the model you want to create it i.e. text classfication or conversational model 
+3) add intent 
+4) add uttrences to the intent. this can be added below 
+	4.1) you can manually 
+	4.2) upload json file 
+	4.3) suggest uttrences by creating the new open AI service and deploying model under it
+
+	
+5) add entities 
+6) train the model 
+7) test the model 
+9) deployt the model as an app service 
+
+
+************************************************************************************************************
+
+
+https://learn.microsoft.com/en-us/azure/ai-services/translator/text-translation/reference/v3/reference
+Translator API:
+
+To_language parameter is must have to pass in the request
+from : not needed as it will use auto detect funaitonlity
+
+https://api.cognitive.microsofttranslator.com/translate?api-version=3.0
+
+
+https://learn.microsoft.com/en-us/azure/ai-services/translator/text-translation/reference/rest-api-guide?WT.mc_id=Portal-Microsoft_Azure_ProjectOxford
+
+detector API :
+
+gives us the language of the text
+
+https://api.cognitive.microsofttranslator.com/detect?api-version=3.0
+
+
+transliterate:
+
+https://api.cognitive.microsofttranslator.com/transliterate?api-version=3.0
+
+
+Below parameters :
+
+api-version	Required parameter.
+Version of the API requested by the client. Value must be 3.0.
+
+language	Required parameter.
+Specifies the language of the text to convert from one script to another. Possible languages are listed in the transliteration 
+scope obtained by querying the service for its supported languages.
+
+fromScript	Required parameter.
+Specifies the script used by the input text. Look up supported languages using the transliteration scope, to find input scripts available for the selected language.
+
+toScript	Required parameter.
+Specifies the output script. Look up supported languages using the transliteration scope, to find output scripts available for the selected combination of input language and input script.
+**************************************************************************************************************************************
+
+AI translator :
+
+
+custom glossary file (this file is always placed in target storage account):
+
+You can use a custom glossary file to ensure that the specific terminology is consistently and accurately translated.
+
+For example, if your organization has a trademarked name that you don't want translated, you can add that to the glossary file. 
+You can also specify the capitalization to use for words, choose specific translations for ambiguous words, or designate 
+specific meanings for your unique context.
+
+for ex :
+
+Source		Target
+Bank       Banque
+   Card     Carte
+   Crane    Grue
+   Office   Office
+   Tiger    Tiger
+   US       United States
+
+Document translation:
+
+Document translation is a cloud-based machine translation feature of the Azure AI Translator service. 
+You can translate multiple and complex documents across all supported languages and dialects while preserving original document structure and data format
+
+code
+
+sourceUrl = "<your-source container-url>"
+targetUrl = "<your-target-container-url>"
+targetLanguage = "<target-language-code>"
+
+poller = client.begin_translation(sourceUrl, targetUrl, targetLanguage)
+result = poller.result()
+
+you need to specfiy the custom glossary file as an extra optional parameter while doing document translation
+
+
+************************************************************************************************
+
+
+Anomaly Detector
+
+
+Anomaly Detector is an Azure AI service that enables developers to monitor and detect anomalies in their time series data with little machine learning knowledge. 
+The service provides a set of APIs that can be used for either batch validation or real-time inference. 
+The underlying AI models are trained and customized using the user’s data, which allows the service to understand the unique needs of their business.
+
+Anomaly Detector can detect spikes, dips, deviations from cyclic patterns, and trend changes through both univariate and multivariate APIs
+
+The Anomaly Detector API provides two methods of anomaly detection: batch and streaming.
+
+
+Univariate :
+
+Analyzes each variable independently, looking for deviations from its historical patterns. 
+
+
+Multivariate 
+
+Considers the relationships between multiple variables to detect anomalies. 
+
+*************************************************************************************************************************************
+
+
+speech synthesizer
+
+A speech synthesizer, also known as a text-to-speech (TTS) system, is a technology that converts written text into audible speech. 
+It's used in various applications, including accessibility tools for screen readers, assistive technologies for
+ individuals with speech impairments, and creating AI assistants with natural-sounding voices
+ 
+Language identification (LID) use cases include:
+
+Speech to text recognition when you need to identify the language in an audio source and then transcribe it to text.
+Speech translation when you need to identify the language in an audio source and then translate it to another language
+
+
+Azure speech to text :
+
+has auto detect feature of language of incoming voice plus the translation to multiple or single langauges
+ 
+
+**************************************************************************************************************
+
+Azure search API 
+
+index:
+
+An index is the searchable content, similar to a database table. data structure that holds the searchable content, defined by a schema
+Each document in the index corresponds to a row, and each field corresponds to a column, similar to a database table. 
+It contains the data that the search engine uses to find relevant results. 
+
+indexer :
+
+the process that ingests and updates data from sources into the index.A process that extracts text from PDF files, performs OCR, and indexes it
+various function it does :Data extraction, transformation, and loading from data sources
+
+parallel indexing
+
+using multiple indexers to process and load data into a search index concurrently, 
+accelerating the process and improving performance for large datasets
+
+************************************************************************************************************************************
+
+QnA maker:
+
+It an service that uses frequently questions answer as your knowledge bases and uses the azure ai search to fetch the required data from 
+your PDF 
+
+you can add chit-chat  feature as well along with your knowledge base which  makes it more conversational and engaging.
+This can be a starting point for your bot's personality, and it will save you the time and cost of writing them from scratch .below are 
+
+
+chit -chat file name can be like qna_chitchat_professional or qna_chitchit_friindly etc 
+Personality	Example
+
+Professional			Age doesn't really apply to me.
+Friendly				I don't really have an age.
+Witty					I'm age-free.
+Caring					I don't have an age.
+Enthusiastic			I'm a bot, so I don't have an age.
+
+
+**********************************************************************************************************************
+
+
+F1 Score
+
+
+https://www.google.com/search?q=f1+score+meaning+in+machine+learning+simple&sca_esv=9a8ab6189a2ca03b&rlz=1C1GCEU_en&sxsrf=AHTn8zoAmLvcidgleOovAXo_rEDTbjPQ2g%3A1747665997589&ei=TUQraPnhI_SH4-EPkdOxuQo&ved=0ahUKEwi5vOOX46-NAxX0wzgGHZFpLKcQ4dUDCBA&uact=5&oq=f1+score+meaning+in+machine+learning+simple&gs_lp=Egxnd3Mtd2l6LXNlcnAiK2YxIHNjb3JlIG1lYW5pbmcgaW4gbWFjaGluZSBsZWFybmluZyBzaW1wbGUyBRAhGKABMgUQIRigAUiyXlAAWPxbcAB4AZABAJgBa6AB2RCqAQQyNi4yuAEDyAEA-AEBmAIcoAK0EsICCxAAGIAEGJECGIoFwgIREC4YgAQYsQMY0QMYgwEYxwHCAgsQLhiABBixAxiDAcICDhAuGIAEGLEDGIMBGIoFwgIREC4YgAQYsQMYgwEY1AIYigXCAg4QABiABBixAxiDARiKBcICCxAAGIAEGLEDGIMBwgIFEAAYgATCAgQQIxgnwgIKECMYgAQYJxiKBcICDRAAGIAEGLEDGEMYigXCAgoQABiABBhDGIoFwgIQEC4YgAQY0QMYQxjHARiKBcICDhAuGIAEGLEDGIMBGNQCwgIIEC4YgAQYsQPCAhAQABiABBixAxhDGIMBGIoFwgILEC4YgAQYxwEYrwHCAgUQLhiABMICBxAAGIAEGArCAgoQABiABBgUGIcCwgIKEAAYgAQYsQMYCsICBhAAGAcYHsICCxAAGIAEGIYDGIoFwgIGEAAYFhgewgIIEAAYgAQYogTCAgUQIRifBcICBxAhGKABGAqYAwDiAwUSATEgQJIHBDI0LjSgB7C6AbIHBDI0LjS4B7QSwgcMMC4yLjIyLjMuMC4xyAfIAQ&sclient=gws-wiz-serp
+
+
+
+******************************************************************************************************************************
+
+
+describeImageInStreamAsync in computer vision API
+
+
+The describe feature of the Computer Vision API generates a human-readable sentence to describe the contents of an image. 
+This is particularly useful for accessibility purposes, as it allows visually impaired users to understand what is in an image without needing to see it. 
+The describe feature can also be customized to provide additional details or context, if desired.
+
+
+************************************************************************************************************************
+
+
+LoggingOptOut in azure language/computer vision (question came )
+
+A new query parameter, LoggingOptOut , is now available for customers who wish to opt out of logging
+input text for incident reports.
+
+By default, this parameter is set to false for Language Detection, Key Phrase Extraction, Sentiment Analysis and Named Entity Recognition endpoints.
+
+ The LoggingOptOut parameter is true by default for the PII and health feature endpoints. More information on the LoggingOptOut query parameter is available 
+ in the API reference.
+ 
+ 
+ Data sent in synchronous or asynchronous calls may be temporarily stored by Azure AI Language for up to 48 hours only 
+ and is purged thereafter. This data is encrypted and is only accessible to authorized on call engineers when service
+ support is needed for debugging purposes in the event of a catastrophic failure. To prevent this temporary storage of input data,
+ the LoggingOptOut query parameter can be set accordingly
+ 
+ 
+*******************************************************************************************************************************
+Named Entity Recognition (NER) in computer vision API
+
+Named Entity Recognition (NER) is a feature that identifies and classifies entities in text . ex : predifined entities like place, person ,
+date, URL,Address etc
+
+Custom NER allows you to train models to recognize specialized entities specific to your use case. In this you need to build custom entity model 
+label your data --> train it --> test it---> deploy as an app service plan 
+
+
+***********************************************************************************************************************************
+
+channels in bot service azure
+ 
+ 
+Direct Line: 	Enables you to integrate your bot into web pages, mobile apps, and other applications. 
+Email: 	Allows your bot to communicate with users via Microsoft 365 email. 
+Facebook: 	Supports communication with users on both Facebook Messenger and Facebook Workplace. 
+GroupMe: 	Allows your bot to interact with users through the GroupMe platform. 
+Other Channels: 	Azure Bot Service also supports other channels like Skype, Slack, Telegram, and more, allowing for a diverse range of user interactions.
+
+
+Direct Line is a more general channel supporting both text and speech, 
+while Direct Line Speech is specifically designed for voice-based interactions.
+
+Direct Line Speech is a robust, end-to-end solution for creating a flexible, extensible voice assistant. It is powered by the Bot Framework and its
+Direct Line Speech channel, that is optimized for voice-in, voice-out interaction with bots
+
+********************************************************************************************************************** 
+
+
+Azure Cognitive Services RBAC roles (question regarding role  ) :
+Cognitive Services User:
+This role provides a wide range of access to Cognitive Services resources, including the ability to view, create, edit, and delete data, models, 
+and endpoints in custom projects. It also allows users to list resource keys. 
+
+QnA Maker Editor:
+This role grants full access to QnA Maker resources, allowing users to create, edit, and publish knowledge bases. 
+They can manage all aspects of QnA Maker, including adding, updating, and deleting Q&A pairs, and testing the knowledge base. 
+
+QnA Maker Reader:
+This role provides read-only access to QnA Maker resources, allowing users to view knowledge bases and test them. 
+They cannot make any changes or modifications to the knowledge base
+
+
+In essence:
+If you need broad access to various Cognitive Services resources, use the "Cognitive Services User" role. 
+If you need to manage and publish QnA Maker knowledge bases, use the "QnA Maker Editor" role. 
+If you only need to view and test QnA Maker knowledge bases, use the "QnA Maker Reader" role. 
+
+
+*************************************************************************************************
+AI enrichment in Azure AI Search
+
+https://learn.microsoft.com/en-us/azure/search/cognitive-search-concept-intro
+
+
+Indexer process :
+
+import --> document cracking --->field mapping -->enrichment(custom) ---> output field mapping (defineing projections) --> load the index 
+
+field mappings 
+
+field mappings that establish the data path between source fields in a supported data source and target fields in a search index.
+
+*********************************************************************************************************
+
+
+Projections :
+
+
+tableName or containter name
+Determines the name of a new table created in Azure Table Storage.
+
+generatedKeyName	
+Column name for the key that uniquely identifies each row. 
+The value is system-generated. If you omit this property, a column will be created automatically that uses the table name and "key" as the naming convention.
+
+source	
+A path to a node in an enrichment tree. The node should be a reference to a complex shape that determines which columns are created in the table.
+
+
+************************************************************************************************************************8
+
+Azure AI text analytics in langauges services :
+
+detect 
+key pharese extraction
+named entity resolution
+sentiment analysis 
+detection and translation 
+Personal and health data information detection.
+summarization
+
+
+***************************************************************************************************************************
+Azure Anomaly Detector vs Azure Metrics Advisor
+
+Azure Anomaly Detector 
+is a core AI service that detects anomalies in time series data using machine learning . Anomaly Detector is a more basic, code-first service, 
+
+Azure Metrics Advisor 
+builds upon it with advanced features like multi-dimensional analysis, root cause diagnosis, and real-time alerts.
+offers a higher-level, more user-friendly experience with built-in features. 
+
+
+*********************************************************************************************************
+
+Azure speech authenfication without api key  (question on azure speech)
+
+To authenticate with a Microsoft Entra token, the Speech resource must have a custom subdomain and use a private endpoint
+he Speech service uses custom subdomains with private endpoints only.
+
+custom subdomain:
+
+Provides a custom domain name for your Azure resource, allowing you to use your own domain to access your service.
+If you have a custom domain "mybusiness.com", you could create a custom subdomain like "store.mybusiness.com" for your Azure App Service. 
+
+*********************************************************************************************************	
+
+Azure open AI token /RPM (capcaity question )
+
+
+capacity integer This represents the amount of quota you are assigning to this deployment
+
+Azure OpenAI allows you to manage how frequently your application can make inferencing requests. 
+Your rate limits are based on Tokens-per-Minute (TPM). For example, if you have a capacity of 1, 
+this equals 1,000 TPM, and the rate limit of requests you can make per minute (RPM) is calculated using a ratio. For every 1,000 TPM, you can make 6 RPM.
+
+6 RPM=1000 TPM     
+1 Capacity = 1000 TPM
+
+
+curl -X PUT https://management.azure.com/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/resource-group-temp/providers/Microsoft.CognitiveServices/accounts/docs-openai-test-001/deployments/gpt-4o-test-deployment?api-version=2023-05-01 \
+  -H "Content-Type: application/json" \
+  -H 'Authorization: Bearer YOUR_AUTH_TOKEN' \
+  -d '{"sku":{"name":"Standard","capacity":10},"properties": {"model": {"format": "OpenAI","name": "gpt-4o","version": "2024-11-20"}}}'
+
+********************************************************************************************************************
+
+Bot Framework Emulator
+
+The Bot Framework Emulator is a desktop application that permits bot developers to test and debug their bots locally or remotely.
+allows bot developers to test and debug bots built using the Bot Framework SDK
+
+
+
+********************************************************************************************************
+
+
+Service Endpoint (in Virtual networks)
+
+
+for a virtual network provides a secure and direct connection to Azure services over the Azure backbone network, bypassing the public internet. 
+This means resources within your virtual network can access Azure services using private IP addresses, rather than public IPs. 
+
+if you restricy only specific resources can access azure ai services then do the following 
+
+add service end point in the specfied the Vnet 1
+Modify the the specfic azure service settign for the networks section
+
+
+
+
+**********************************************************************************************88
+Private end point :
+
+
+*********************************************************************************************************8
+
+Computer vision detect type (image type comes in the exam ) for clip art, line drawling , photograph
+
+Categories—Categorizes image content according to the category taxonomy.
+◦Description of caption—Describes the image content in a complete English sentence.
+◦Color—Determines whether the image is black and white or color, and for colored images, detects the dominant and accent colors.
+◦Tags—Tags the image with a detailed list of words related to the image content.
+◦Faces—Detects if faces are present in the image.
+◦Image Type—Detects if an image is a clip art or a line drawing.
+◦Adult—Detects if the image is pornographic in nature or if the image depicts sexually suggestive content.
+◦Objects—Detects various objects in the image.
+
+
+
+***********************************************************************************************************************
+
+Face API (live or fake photo )
+
+Liveness detection is a security measure that ensures a biometric sample (like a face or fingerprint) is from a real, 
+live person and not a fake image, video, or mask
+
+Validating that subjects are real people can be done by detecting natural head movements. 
+The HeadPose attribute provides the orientation of the head, and checking for natural changes in this attribute
+ over time can help determine if the subject is a real person or a static image
+
+*******************************************************************************************************************88
+
+DOcument intelligence API 
+
+if you dont want to store the images in the cloud while calling the API then use the image file format as  raw image binary
+
+
+
+**********************************************************************************************************************8
+
+
+Knowledge base for the Q&A maker 
+
+
+create_op = client.knowledgebase.create(create_kb_payload=create_kb_dto)
+
+A knowledge base stores question and answer pairs for the CreateKbDTO object from these three sources:
+
+For editorial content, use the QnADTO object
+For files, use the FileDTO object. The FileDTO includes the filename and the public URL to reach the file.
+
+For URLs, use a list of strings to represent publicly available URLs.
+
+
+**************************************************************************************************
+
+Entity in Conversational model :
+
+Entities represent pieces of information extracted from user utterances that are relevant to understanding the user's intent. 
+These entities can be classified into several types, 
+including prebuilt, learned, list, and regular expression entities.
+
+
+Entities type:
+
+list:
+These entities represent a fixed, closed set of related words or phrases, with synonyms. 
+Aiport entity includes list of aiports id 
+
+Prebuilt Entities:
+These are pre-defined entities provided by the language model platform, such as dates, times, locations, and numbers. 
+
+Machine Learning entities:
+These entities are trained by the model to identify specific values based on examples provided during training. 
+
+Regex Entities:
+These entities are defined using regular expressions to capture specific patterns in the user's input. 
+
+Geography V2":
+encompasses various geographical locations. These include cities, countries, continents, and states, as defined by the Microsoft LUIS service. 
+For example, "Paris", "France", "Asia", and "California" would all be considered instances of this entity type. 
+
+****************************************************************************************************************
+Adding faces from file :
+
+Page no 190 to 194 in exam topic pdf 
+
+https://learn.microsoft.com/en-us/rest/api/face/face-recognition-operations/find-similar?view=rest-face-v1.2&tabs=HTTP	
+
+
+
+
+225 pages continue
+
+revice from 190 page 
+Page 252 needs revise--> Docker containers
+
+
+DALL-E images and api parameters 
+
