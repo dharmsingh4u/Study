@@ -139,7 +139,7 @@ Azure conversational languege app:
 
 1) Create the new applicaiton or project 
 2) pick the model you want to create it i.e. text classfication or conversational model 
-3) add intent 
+3) add intent
 4) add uttrences to the intent. this can be added below 
 	4.1) you can manually 
 	4.2) upload json file 
@@ -337,6 +337,10 @@ The describe feature of the Computer Vision API generates a human-readable sente
 This is particularly useful for accessibility purposes, as it allows visually impaired users to understand what is in an image without needing to see it. 
 The describe feature can also be customized to provide additional details or context, if desired.
 
+readInStreamAsync is used for extracting text from images (OCR).
+analyzeImagesByDomainInStreamAsync is for domain-specific image analysis (like celebrities or landmarks).
+tagImageInStreamAsync provides tags for the image but not in complete sentences, which is less useful for accessibility purposes.
+
 
 ************************************************************************************************************************
 
@@ -380,9 +384,15 @@ GroupMe: 	Allows your bot to interact with users through the GroupMe platform.
 Other Channels: 	Azure Bot Service also supports other channels like Skype, Slack, Telegram, and more, allowing for a diverse range of user interactions.
 
 
-Direct Line is a more general channel supporting both text and speech, 
-while Direct Line Speech is specifically designed for voice-based interactions.
+Direct Line
+Pmrimarily used for text-based conversations.
 
+Direct Line Speech
+specifically designed for voice-based interactions.
+It provides text-to-speech and speech-to-text services within the channel. 
+It allows a client to stream audio directly to the channel which will then be converted to text and sent to the bot. 
+Direct Line Speech can also convert text messages from the bot into audio messages spoken by an AI-powered voice. 
+Combined, this makes Direct Line Speech capable of having audio only conversations with clients.
 Direct Line Speech is a robust, end-to-end solution for creating a flexible, extensible voice assistant. It is powered by the Bot Framework and its
 Direct Line Speech channel, that is optimized for voice-in, voice-out interaction with bots
 
@@ -554,7 +564,7 @@ The HeadPose attribute provides the orientation of the head, and checking for na
 
 *******************************************************************************************************************88
 
-DOcument intelligence API 
+DOcument intelligence API (question came on file type i.e. raw image binary)
 
 if you dont want to store the images in the cloud while calling the API then use the image file format as  raw image binary
 
@@ -605,13 +615,272 @@ encompasses various geographical locations. These include cities, countries, con
 For example, "Paris", "France", "Asia", and "California" would all be considered instances of this entity type. 
 
 ****************************************************************************************************************
+
+
+
+
+You are creating an application that references the Azure OpenAI REST API for a DALL-E model.
+You plan to use thumbnails of the images that DALL-E generates and display them in a table on a webpage.
+You need to find the image URLs in the JSON response.
+
+Which element should you review?
+
+Answer is-->result element 
+
+
+
+
+You have an Azure App Services web app named App1.
+You need to configure App1 to use Azure AI Services to authenticate by using Microsoft Entra ID. The solution must meet the following requirements:
+Minimize administrative effort.
+Use the principle of least privilege.
+What should you do?
+
+answer is---> From App1, enable a managed identity and assign role-based access control (RBAC) permissions to Azure AI Services.
+
+
+ou are building an app that uses Azure AI Services Document Translation.
+You need to improve the quality of the translation for user-uploaded documents.
+What should you ask the users to include when they upload a document?
+
+Answer is -->the source language
+
+
+You are creating an orchestration workflow for Language Understanding.
+You need to configure workflows for multiple languages. The solution must minimize administrative effort.
+What should you create for each language?
+
+answer is -->separate workflow projects 
+orchestration workflow doesnt support multi languages model 
+
+
+You are developing a video processing application that will utilize Azure AI Video Indexer to extract insights from videos containing content in multiple languages.
+
+To configure the API calls for identifying and processing the multilingual content, you need to specify the correct parameter for language identification.
+
+Which value should you set for the sourceLanguage parameter to ensure accurate multilingual detection?
+
+answer is -->multi-language detection
+
+****************************************************************************************************
+
+
 Adding faces from file :
 
-Page no 190 to 194 in exam topic pdf 
+
 
 https://learn.microsoft.com/en-us/rest/api/face/face-recognition-operations/find-similar?view=rest-face-v1.2&tabs=HTTP	
 
+************************************************************************************************************************
 
+
+query keys vs admin keys in azure ai search 
+
+
+admin keys grant read-write access, allowing creation, modification, and deletion of objects, while query keys provide
+ read-only access for client applications to issue queries. Using query keys for client applications is recommended for security reasons. 
+
+if query is lost or in danger then use the following:
+
+1) add a new query key 
+2) change the app to new query key 
+3) delete the old key
+
+
+*************************************************************************************************************
+
+
+document-level filtering in azure ai search
+
+Azure AI Search doesn't natively support row-level or document-level permissions. However, 
+you can achieve document-level filtering by using a security filter pattern
+
+
+1) identify the group membership of the user 
+2) add this group to the index 
+3) set the group as filterable and passes in the Search request.
+
+POST https://[service name].search.windows.net/indexes/securedfiles/docs/search?api-version=2024-07-01
+
+{
+   "filter":"group_ids/any(g:search.in(g, 'group_id1, group_id2'))"  
+}
+
+
+************************************************************************************************************
+
+
+prebuilt-read vs prebuilt-document (OR prebuilt-layout) in Azure document intelligence
+
+
+prebuilt-read model 
+focuses on extracting text from documents and  is primarily for extracting text from PDF , images etc . Basic OCR 
+
+prebuilt-document model offers more comprehensive document analysis, including key-value pair extraction and table analysis.
+Provides a more structured JSON output containing extracted data, including key-value pairs and table structures.
+
+
+*************************************************************************************************************
+
+
+https://learn.microsoft.com/en-us/azure/bot-service/bot-builder-basics?view=azure-bot-service-4.0
+
+Entities ve properties differcen in azure bot service 
+
+Tyepe of cards in 
+
+https://learn.microsoft.com/en-us/azure/bot-service/bot-service-design-user-experience?view=azure-bot-service-4.0#cards
+*****************************************************************************************************************
+deploying bot service applications 
+
+az webapp deployment source config-zip --resource-group "<resource-group-name>" --name "<name-of-app-service>" --src "<project-zip-path>"
+
+
+Bot Framework Composer:
+s a visual authoring canvas for building bots.Allows for visual editing of conversation flows, in-context editing for language understanding (NLU), 
+and management of QnA components. 
+
+Bot Framework Emulator
+
+is a tool for testing and debugging bots.Enables interaction with the bot, observation of conversational flow, and verification of bot logic. 
+
+
+types of dialogues
+
+https://learn.microsoft.com/en-us/azure/bot-service/bot-builder-concept-dialog?view=azure-bot-service-4.0
+
+waterflow 
+adaptive 
+prompt
+compononet 
+action 
+etc 
+
+
+************************************************************************************************************
+
+Azure bot :
+
+Dailogue trigger :
+
+Dialog triggers handle dialog specific events that are related to the lifecycle of the dialog. 
+There are currently six dialog triggers in the Bot Framework SDK
+
+OnBeginDialog
+OnCancelDialog
+OnEndOfActions
+OnError
+OnRepromptDialog
+OnDialog
+
+activity handler (question came on custom text messages)
+
+An activity handler is designed to handle various types of activities in the Microsoft Bot Framework, including events. 
+You can use an activity handler to respond to events and send custom text responses based on the type of activity received.
+
+
+send_activity :
+
+is a method used to send messages and other types of activities from your bot to the user's channel. 
+It's part of the TurnContext object, which represents the current interaction between the bot and the user.
+ You use send_activity in your bot's activity handlers to respond to user input or trigger other actions. 
+ 
+
+clear_state 
+
+is used to remove or reset the bot's stored conversation state. This state typically includes information
+ about the user's interaction history, any data collected during the conversation, and the bot's current dialog state
+ 
+ 
+trace activity
+
+ is an activity that your bot can send to the Bot Framework Emulator. You can use trace activities to interactively debug a bot,
+ as they allow you to view information about your bot while it runs locally.
+
+*************************************************
+How to debug the bot using bot emulator :
+*************************************************
+
+
+Run a bot locally
+Connect to a bot emulator running on localhost
+Use trace activities for debugging
+
+
+**************************************************************************************************************8
+
+Open AI tokens
+:
+
+Prompt Tokens
+
+These are the tokens in your instructions or input text that you provide to the model. They serve as the basis for the model's generation. 
+
+
+Completion Tokens:
+These are the tokens that the model generates as a response to your prompt. They are the output of the model based on the input. 
+
+
+Max Tokens
+
+This parameter sets the upper limit on the number of tokens the model can generate in its completion. 
+It's crucial for managing costs and preventing excessive output, especially with models like GPT-4 
+Turbo that have different limits on input and output. 
+
+billing is done on the total number of tokens i.e. completed token + prompt token
+
+
+
+System Prompt:
+as the foundational instructions that dictate an AI's behavior. They establish the framework for how the AI will interact 
+and respond, similar to a job description for an employee. These prompts define the AI's role, its area of expertise
+
+
+User Prompt:
+
+re the specific instructions or questions a user provides to an AI system to elicit a desired response . for ex 
+These prompts ask the AI to categorize input data based on predefined labels or categories. For example,
+a user might ask the AI to classify a product review as positive or negative.
+
+
+Assitant:
+
+Provides the actual response from the LLM based on the user's input and the system prompt. 
+Example:
+If the user asks "What is the capital of France?", the assistant prompt would provide the answer "The capital of France is Paris.
+
+messages = [
+    {'role': 'system', 'content': 'You complete the next turn in conversations using the following format: <name>: <message>'},
+    {'role': 'user', 'content': 'Alice: What is your name?\nBob:Bob\nAlice: How are you today?'},
+]
+
+***********************************************************************************************************
+
+Open AI create service.
+
+
+az cognitiveservices account create -n myresource -g myResourceGroup --assign-identity --kind OpenAPI --sku S -l WestEurope --yes
+    --encryption '{
+      "keySource": "Microsoft.KeyVault",
+      "keyVaultProperties": {
+        "keyName": "KeyName",
+        "keyVersion": "secretVersion",
+        "keyVaultUri": "https://issue23056kv.vault.azure.net/"
+      }
+    }'
+
+--encryption is CORRECT because it is used to specify encryption settings for the Azure Cognitive Services account, 
+allowing you to configure customer-managed keys for data protection, which meets the requirement to use a customer-managed key.
+ 
+***********************************************************************************************************
+page no 261 below answer :
+
+
+
+
+1. Upload a Glossary file to the french files container
+2. Define a document translation specification that has french target
+3. Perform asynchronous translation by using the document specification
 
 
 225 pages continue
@@ -621,4 +890,50 @@ Page 252 needs revise--> Docker containers
 
 
 DALL-E images and api parameters 
+
+Page no 190 to 194 in exam topic pdf 
+Page number 249,253,255,261
+
+277 --> need revision
+287 
+300 --? bot service
+304 --> export model (language)
+307 -->OnMembersAddedAsync
+https://learn.microsoft.com/en-us/dotnet/api/microsoft.bot.builder.activityhandler.onmembersaddedasync?view=botbuilder-dotnet-stable
+https://learn.microsoft.com/en-us/azure/bot-service/bot-builder-send-welcome-message?view=azure-bot-service-4.0&tabs=python
+
+t
+
+308 --<> Greet()
+311 --> adoptavie card
+
+
+${user.name} retrieves the user's name using a prompt.-->No.
+In this context, ${user.name} directly retrieves the user's name from the incoming user object. It doesn't obtain the user's name through a prompt but assumes that the user object already contains the name property.
+
+Greet() is the name of the language generation template.-->Yes.
+# Greet(user) defines a language generation template named Greet. This template takes a user parameter, 
+indicating that Greet is the template name used to generate personalized greeting messages.
+
+${Greeting()} is a reference to a template in the language generation file.-->Yes.
+
+309 ---> bot service 
+315 ---> dialoue -->property state
+317 ---> chatbot speech capabilites
+318 --->cancel activity --> conversational activty flow
+327 ---> bot steps 
+328 --> bot activity handlers -->custom steps 
+330  --> 5 bots into one  (install , create , recogniser/dispatch)_
+342 --> aend trace activity
+345 ---> bot logins crendetials 
+349 --> docker run anamloy detetor service  --->very bad memory of you. Need understanding
+354 --> chatgpt assitnat vs system difference answer is assistant
+357 ---> tokens
+
+QnA service pratical needed --->practise needed
+
+questions from 402 needs to continue 
+
+
+
 
